@@ -17,25 +17,22 @@ export const formatDateShort = (date: Date): string => {
 export const getFMCStatus = (date: Date): { status: 'Working' | 'Non-Working' | 'Holiday', note?: string } => {
   const checkTime = date.getTime();
   
+  // 1. 首先檢查是否有定義在 HOLIDAY_WINDOWS 中的特殊排班 (這包含了 12/24, 12/25, 12/31, 01/01)
   for (const window of HOLIDAY_WINDOWS) {
     if (checkTime >= window.panamaStart.getTime() && checkTime <= window.panamaEnd.getTime()) {
       return { status: window.status, note: window.note };
     }
   }
 
-  const panamaDate = getZoneTime(date, -5);
-  const day = panamaDate.getDate();
-  const month = panamaDate.getMonth();
-  const year = panamaDate.getFullYear();
-
-  if ((month === 11 && day === 25) || (month === 0 && day === 1)) {
-    return { status: 'Holiday' };
+  // 2. 如果不在特殊窗口內，檢查是否為週末 (巴拿馬時間)
+  const panamaDate = getZoneTime(date, OFFSETS.Panama);
+  const dayOfWeek = panamaDate.getDay(); // 0 is Sunday, 6 is Saturday
+  
+  if (dayOfWeek === 0 || dayOfWeek === 6) {
+    return { status: 'Non-Working', note: 'Weekend' };
   }
 
-  if ((month === 11 && (day === 24 || day === 31))) {
-    return { status: 'Non-Working' };
-  }
-
+  // 3. 預設為正常工作時間
   return { status: 'Working' };
 };
 
@@ -49,7 +46,7 @@ export const getUpcomingHolidayInfo = (now: Date): UpcomingHoliday | null => {
   const checkTime = now.getTime();
   const twentyFourHours = 24 * 60 * 60 * 1000;
 
-  // Find the next non-working or holiday window
+  // 尋找下一個非工作或假日窗口
   const upcoming = HOLIDAY_WINDOWS
     .filter(w => w.status !== 'Working' && w.panamaStart.getTime() > checkTime)
     .sort((a, b) => a.panamaStart.getTime() - b.panamaStart.getTime())[0];
@@ -68,9 +65,14 @@ export const getUpcomingHolidayInfo = (now: Date): UpcomingHoliday | null => {
 };
 
 export const calculateSafeDeadline = (targetDate: Date): Date => {
+  // 從目標日期往前推 4 天
   let deadline = new Date(targetDate.getTime() - (4 * 24 * 60 * 60 * 1000));
-  while (getFMCStatus(deadline).status !== 'Working') {
+  
+  // 如果該點不是工作時間，則繼續往前回溯，直到找到最近的工作窗口
+  let safetyCounter = 0;
+  while (getFMCStatus(deadline).status !== 'Working' && safetyCounter < 500) {
     deadline = new Date(deadline.getTime() - (1 * 60 * 60 * 1000));
+    safetyCounter++;
   }
   return deadline;
 };

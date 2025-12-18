@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-import WorldClock from './components/WorldClock';
-import DeadlinePlanner from './components/DeadlinePlanner';
-import HolidayScheduleTable from './components/HolidayScheduleTable';
-import TimeTraveler from './components/TimeTraveler';
-import { getUpcomingHolidayInfo, formatTime } from './utils/timeUtils';
+import WorldClock from './components/WorldClock.tsx';
+import DeadlinePlanner from './components/DeadlinePlanner.tsx';
+import HolidayScheduleTable from './components/HolidayScheduleTable.tsx';
+import TimeTraveler from './components/TimeTraveler.tsx';
+import { getUpcomingHolidayInfo, formatTime } from './utils/timeUtils.ts';
 import { ShieldAlert, Mail, MapPin, Compass, AlertOctagon, Clock, Languages } from 'lucide-react';
 
 export type Language = 'zh' | 'en';

@@ -7,9 +7,9 @@ export const OFFSETS = {
   GMT: 0,
 };
 
-// Precise holiday windows in UTC
+// 嚴格根據官方表格定義的 UTC 時間窗
 export const HOLIDAY_WINDOWS: ScheduleEntry[] = [
-  // Dec 24: Partial Working Day Breakdown
+  // --- 2025/12/24 (巴拿馬時間) ---
   {
     status: 'Non-Working',
     panamaStart: new Date('2025-12-24T00:00:00-05:00'),
@@ -41,7 +41,7 @@ export const HOLIDAY_WINDOWS: ScheduleEntry[] = [
     note: 'Late Night'
   },
   
-  // Dec 25 Holiday
+  // --- 2025/12/25 (巴拿馬全天假日) ---
   {
     status: 'Holiday',
     panamaStart: new Date('2025-12-25T00:00:00-05:00'),
@@ -49,7 +49,7 @@ export const HOLIDAY_WINDOWS: ScheduleEntry[] = [
     note: 'Full Holiday'
   },
   
-  // Dec 31: Partial Working Day Breakdown
+  // --- 2025/12/31 (巴拿馬時間) ---
   {
     status: 'Non-Working',
     panamaStart: new Date('2025-12-31T00:00:00-05:00'),
@@ -81,11 +81,11 @@ export const HOLIDAY_WINDOWS: ScheduleEntry[] = [
     note: 'Late Night'
   },
   
-  // Jan 1 Holiday
+  // --- 2026/01/01 (巴拿馬全天假日) ---
   {
     status: 'Holiday',
     panamaStart: new Date('2026-01-01T00:00:00-05:00'),
     panamaEnd: new Date('2026-01-01T23:59:59-05:00'),
-    note: 'Full Holiday'
+    note: 'New Year Holiday'
   }
 ];
