@@ -1,7 +1,7 @@
 import React from 'react';
 import { getZoneTime, formatTime, formatDateShort, getFMCStatus } from '../utils/timeUtils.ts';
 import { OFFSETS } from '../constants.ts';
-import { Clock as ClockIcon, Anchor, Ship } from 'https://esm.sh/lucide-react@0.463.0?external=react';
+import { Clock as ClockIcon, Anchor, Ship } from 'lucide-react';
 import { Language } from '../App.tsx';
 
 interface WorldClockProps {

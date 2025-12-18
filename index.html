@@ -11,15 +11,16 @@
         #root { min-height: 100vh; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
-    <!-- 重要：定義全域 importmap 確保所有模組共用同一個 React 實體 -->
+    <!-- 定義全域模組對照表，強制所有組件共用同一個 React 來源 -->
     <script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@19.0.0",
     "react-dom": "https://esm.sh/react-dom@19.0.0",
     "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+    "lucide-react": "https://esm.sh/lucide-react@0.463.0?external=react",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
   }
 }
 </script>
@@ -32,10 +33,10 @@
         </div>
     </div>
 
-    <!-- 啟動 esm.sh/run 並指定入口 -->
-    <script type="module">
-      import { run } from "https://esm.sh/run";
-      run("./index.tsx");
-    </script>
+    <!-- 1. 定義 TSX 入口 -->
+    <script type="text/tsx" src="./index.tsx"></script>
+    
+    <!-- 2. 載入 esm.sh/run 引擎自動處理頁面上的 TSX -->
+    <script type="module" src="https://esm.sh/run"></script>
 </body>
 </html>

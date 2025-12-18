@@ -6,7 +6,7 @@ import TimeTraveler from './components/TimeTraveler.tsx';
 import { getUpcomingHolidayInfo, formatTime } from './utils/timeUtils.ts';
 import { 
   ShieldAlert, Mail, MapPin, Compass, AlertOctagon, Clock, Languages 
-} from 'https://esm.sh/lucide-react@0.463.0?external=react';
+} from 'lucide-react';
 
 export type Language = 'zh' | 'en';
 

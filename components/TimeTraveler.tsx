@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { formatDateShort, getZoneTime, getFMCStatus } from '../utils/timeUtils.ts';
 import { OFFSETS } from '../constants.ts';
-import { Play, Pause, CalendarDays, Clock, AlertCircle, Zap, Activity } from 'https://esm.sh/lucide-react@0.463.0?external=react';
+import { Play, Pause, CalendarDays, Clock, AlertCircle, Zap, Activity } from 'lucide-react';
 import { Language } from '../App.tsx';
 
 interface TimeTravelerProps {

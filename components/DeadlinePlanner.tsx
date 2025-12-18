@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { calculateSafeDeadline, getZoneTime, formatTime, formatDateShort, getFMCStatus } from '../utils/timeUtils.ts';
 import { OFFSETS } from '../constants.ts';
-import { Calendar, AlertTriangle, CheckCircle, Info } from 'https://esm.sh/lucide-react@0.463.0?external=react';
+import { Calendar, AlertTriangle, CheckCircle, Info } from 'lucide-react';
 import { Language } from '../App.tsx';
 
 interface DeadlinePlannerProps {
