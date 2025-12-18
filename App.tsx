@@ -1,11 +1,11 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'https://esm.sh/react@19.2.3';
 import WorldClock from './components/WorldClock.tsx';
 import DeadlinePlanner from './components/DeadlinePlanner.tsx';
 import HolidayScheduleTable from './components/HolidayScheduleTable.tsx';
 import TimeTraveler from './components/TimeTraveler.tsx';
 import { getUpcomingHolidayInfo, formatTime } from './utils/timeUtils.ts';
-import { ShieldAlert, Mail, MapPin, Compass, AlertOctagon, Clock, Languages } from 'lucide-react';
+import { ShieldAlert, Mail, MapPin, Compass, AlertOctagon, Clock, Languages } from 'https://esm.sh/lucide-react@0.561.0';
 
 export type Language = 'zh' | 'en';
 
