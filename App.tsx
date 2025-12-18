@@ -1,11 +1,12 @@
 
-import React, { useState, useEffect } from 'https://esm.sh/react@19.2.3';
+import React, { useState, useEffect } from 'https://esm.sh/react@19.0.0';
 import WorldClock from './components/WorldClock.tsx';
 import DeadlinePlanner from './components/DeadlinePlanner.tsx';
 import HolidayScheduleTable from './components/HolidayScheduleTable.tsx';
 import TimeTraveler from './components/TimeTraveler.tsx';
 import { getUpcomingHolidayInfo, formatTime } from './utils/timeUtils.ts';
-import { ShieldAlert, Mail, MapPin, Compass, AlertOctagon, Clock, Languages } from 'https://esm.sh/lucide-react@0.561.0';
+// 修正點：lucide-react 在 esm.sh 環境中需要指定外掛 React 避免衝突
+import { ShieldAlert, Mail, MapPin, Compass, AlertOctagon, Clock, Languages } from 'https://esm.sh/lucide-react@0.460.0?external=react';
 
 export type Language = 'zh' | 'en';
 
@@ -142,7 +143,6 @@ const App: React.FC = () => {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 max-w-5xl -mt-12 space-y-8">
-        {/* Simulation Controls */}
         <section>
           <TimeTraveler 
             currentTime={now}
@@ -153,12 +153,10 @@ const App: React.FC = () => {
           />
         </section>
 
-        {/* Live Status Section */}
         <section>
           <WorldClock now={now} isSimulating={isSimulating} lang={lang} />
         </section>
 
-        {/* Action Planner */}
         <section className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           <div className="lg:col-span-3 space-y-8">
             <DeadlinePlanner lang={lang} />
@@ -166,7 +164,6 @@ const App: React.FC = () => {
           </div>
 
           <div className="lg:col-span-2 space-y-6">
-            {/* Quick Tips */}
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
               <h3 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-indigo-500" />
@@ -188,7 +185,6 @@ const App: React.FC = () => {
               </ul>
             </div>
 
-            {/* Support Box */}
             <div className="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
               <div className="flex items-center gap-2 mb-3 text-indigo-800 font-bold">
                 <Mail className="w-5 h-5" />
@@ -211,15 +207,10 @@ const App: React.FC = () => {
         </section>
       </main>
 
-      {/* Footer */}
       <footer className="mt-20 border-t border-slate-200 py-10">
         <div className="container mx-auto px-4 text-center">
-          <p className="text-slate-400 text-sm">
-            {t.footer1}
-          </p>
-          <p className="text-slate-300 text-xs mt-1">
-            {t.footer2}
-          </p>
+          <p className="text-slate-400 text-sm">{t.footer1}</p>
+          <p className="text-slate-300 text-xs mt-1">{t.footer2}</p>
         </div>
       </footer>
     </div>
