@@ -1,12 +1,12 @@
-
-import React, { useState, useEffect } from 'https://esm.sh/react@19.0.0';
+import React, { useState, useEffect } from 'react';
 import WorldClock from './components/WorldClock.tsx';
 import DeadlinePlanner from './components/DeadlinePlanner.tsx';
 import HolidayScheduleTable from './components/HolidayScheduleTable.tsx';
 import TimeTraveler from './components/TimeTraveler.tsx';
 import { getUpcomingHolidayInfo, formatTime } from './utils/timeUtils.ts';
-// 修正點：lucide-react 在 esm.sh 環境中需要指定外掛 React 避免衝突
-import { ShieldAlert, Mail, MapPin, Compass, AlertOctagon, Clock, Languages } from 'https://esm.sh/lucide-react@0.460.0?external=react';
+import { 
+  ShieldAlert, Mail, MapPin, Compass, AlertOctagon, Clock, Languages 
+} from 'https://esm.sh/lucide-react@0.463.0?external=react';
 
 export type Language = 'zh' | 'en';
 
@@ -87,7 +87,6 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen pb-20 bg-slate-50">
-      {/* High Priority Warning Banner */}
       {upcomingWarning && (
         <div className="bg-red-600 text-white py-3 px-4 sticky top-0 z-50 shadow-xl animate-pulse">
           <div className="container mx-auto max-w-5xl flex items-center justify-between">
@@ -108,7 +107,6 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* Header */}
       <header className="bg-slate-900 text-white pt-10 pb-20 relative overflow-hidden">
         <div className="absolute top-6 right-6 z-20">
           <button 
@@ -141,7 +139,6 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="container mx-auto px-4 max-w-5xl -mt-12 space-y-8">
         <section>
           <TimeTraveler 

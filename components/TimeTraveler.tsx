@@ -1,9 +1,8 @@
-
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { formatDateShort, getZoneTime, getFMCStatus } from '../utils/timeUtils';
-import { OFFSETS } from '../constants';
-import { FastForward, Play, Pause, MousePointer2, CalendarDays, Clock, AlertCircle, Zap, Activity } from 'lucide-react';
-import { Language } from '../App';
+import { formatDateShort, getZoneTime, getFMCStatus } from '../utils/timeUtils.ts';
+import { OFFSETS } from '../constants.ts';
+import { Play, Pause, CalendarDays, Clock, AlertCircle, Zap, Activity } from 'https://esm.sh/lucide-react@0.463.0?external=react';
+import { Language } from '../App.tsx';
 
 interface TimeTravelerProps {
   currentTime: Date;
@@ -63,19 +62,14 @@ const TimeTraveler: React.FC<TimeTravelerProps> = ({ currentTime, isSimulating, 
   const currentTimeRef = useRef(currentTime);
   currentTimeRef.current = currentTime;
 
-  // Generate the 24-hour ribbon based on THE CURRENT TAIWAN DAY
-  // But each segment shows the FMC status at that UTC moment.
   const scheduleRibbon = useMemo(() => {
     const segments = [];
     const baseTW = new Date(twTime);
     baseTW.setHours(0, 0, 0, 0);
     
-    // We check 48 half-hour segments for smoother gradients, or 24 hours.
-    // Let's stick to 24 hours for clarity as requested.
     for (let h = 0; h < 24; h++) {
       const segmentTW = new Date(baseTW);
       segmentTW.setHours(h);
-      // Convert TW hour to UTC
       const utcCheck = new Date(segmentTW.getTime() - (OFFSETS.Taiwan * 3600000));
       const { status } = getFMCStatus(utcCheck);
       
@@ -159,7 +153,6 @@ const TimeTraveler: React.FC<TimeTravelerProps> = ({ currentTime, isSimulating, 
           : 'bg-white border-slate-200'
       }`}
     >
-      {/* Date Change Flash Overlay */}
       <div className={`absolute inset-0 z-50 flex items-center justify-center pointer-events-none transition-all duration-500 ${showFlash ? 'opacity-100 scale-100 backdrop-blur-xl' : 'opacity-0 scale-90 backdrop-blur-0'}`}>
         <div className="bg-amber-400 text-slate-950 px-12 py-8 rounded-[4rem] font-black text-4xl flex flex-col items-center gap-3 shadow-2xl border-8 border-white transform transition-transform">
           <Activity className="w-12 h-12 animate-spin text-indigo-900" />
@@ -196,7 +189,6 @@ const TimeTraveler: React.FC<TimeTravelerProps> = ({ currentTime, isSimulating, 
 
       <div className={`space-y-16 ${!isSimulating && 'opacity-20 pointer-events-none blur-[2px] grayscale'}`}>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-          {/* Left: Date Selection */}
           <div className="lg:col-span-1">
             <div className="relative">
               <label className={`block text-[11px] font-black tracking-[0.3em] uppercase mb-4 ${isSimulating ? 'text-indigo-400' : 'text-slate-400'}`}>
@@ -232,7 +224,6 @@ const TimeTraveler: React.FC<TimeTravelerProps> = ({ currentTime, isSimulating, 
             </div>
           </div>
           
-          {/* Right: Timeline Control */}
           <div className="lg:col-span-3">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8">
               <div className="flex-1">
@@ -277,7 +268,6 @@ const TimeTraveler: React.FC<TimeTravelerProps> = ({ currentTime, isSimulating, 
             </div>
 
             <div className="relative h-28 flex items-center mt-10">
-              {/* Hour Ticks on Top */}
               <div className="absolute top-0 left-0 right-0 flex justify-between px-1 pointer-events-none">
                 {[0, 4, 8, 12, 16, 20, 23].map(h => (
                   <div key={h} className="flex flex-col items-center">
@@ -287,7 +277,6 @@ const TimeTraveler: React.FC<TimeTravelerProps> = ({ currentTime, isSimulating, 
                 ))}
               </div>
               
-              {/* Sync Schedule Ribbon (Mapped to Taiwan Time) */}
               <div className="absolute top-10 left-0 right-0 h-10 w-full flex rounded-[1.25rem] overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.4),inset_0_4px_10px_rgba(0,0,0,0.5)] bg-slate-900 border-2 border-slate-800">
                 {scheduleRibbon.map((seg) => (
                   <div 
@@ -297,7 +286,6 @@ const TimeTraveler: React.FC<TimeTravelerProps> = ({ currentTime, isSimulating, 
                 ))}
               </div>
 
-              {/* FMC Status Tooltip that stays centered on the handle but shows Panama info */}
               <div 
                 className="absolute -top-6 transition-all duration-300 pointer-events-none"
                 style={{ left: `${(totalMinutesTW / 1440) * 100}%` }}
@@ -310,7 +298,6 @@ const TimeTraveler: React.FC<TimeTravelerProps> = ({ currentTime, isSimulating, 
                  </div>
               </div>
 
-              {/* Hidden Control Input */}
               <input 
                 type="range" 
                 min="0" 
@@ -322,7 +309,6 @@ const TimeTraveler: React.FC<TimeTravelerProps> = ({ currentTime, isSimulating, 
                 style={{ WebkitAppearance: 'none' }}
               />
               
-              {/* Custom Handle Visuals */}
               <div 
                 className="absolute top-8 pointer-events-none z-30 flex flex-col items-center transition-all duration-300"
                 style={{ left: `${(totalMinutesTW / 1440) * 100}%` }}
@@ -331,7 +317,6 @@ const TimeTraveler: React.FC<TimeTravelerProps> = ({ currentTime, isSimulating, 
                    <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-[10px] font-black text-white bg-indigo-600 px-3 py-1 rounded-full whitespace-nowrap shadow-lg border border-indigo-400">
                       {t.twHandle}
                    </div>
-                   {/* Handle Glow Dot */}
                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full flex items-center justify-center border-4 border-indigo-600">
                       <div className="w-1 h-1 bg-indigo-600 rounded-full animate-ping" />
                    </div>
@@ -353,7 +338,6 @@ const TimeTraveler: React.FC<TimeTravelerProps> = ({ currentTime, isSimulating, 
         </div>
       </div>
       
-      {/* Decorative pulse element for tension */}
       {currentStatus !== 'Working' && (
         <div className="absolute inset-0 border-[6px] border-rose-600/20 rounded-[3rem] pointer-events-none animate-pulse" />
       )}

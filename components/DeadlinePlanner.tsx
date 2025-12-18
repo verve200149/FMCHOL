@@ -1,9 +1,8 @@
-
 import React, { useState } from 'react';
-import { calculateSafeDeadline, getZoneTime, formatTime, formatDateShort, getFMCStatus } from '../utils/timeUtils';
-import { OFFSETS } from '../constants';
-import { Calendar, AlertTriangle, CheckCircle, Info } from 'lucide-react';
-import { Language } from '../App';
+import { calculateSafeDeadline, getZoneTime, formatTime, formatDateShort, getFMCStatus } from '../utils/timeUtils.ts';
+import { OFFSETS } from '../constants.ts';
+import { Calendar, AlertTriangle, CheckCircle, Info } from 'https://esm.sh/lucide-react@0.463.0?external=react';
+import { Language } from '../App.tsx';
 
 interface DeadlinePlannerProps {
   lang: Language;
@@ -109,7 +108,6 @@ const DeadlinePlanner: React.FC<DeadlinePlannerProps> = ({ lang }) => {
           </div>
           
           <div className="mt-6 pt-6 border-t border-indigo-500 flex items-start gap-2 text-xs text-indigo-100">
-            <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
             <p>{t.info}</p>
           </div>
         </div>

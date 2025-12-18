@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Language } from '../App';
+import { Language } from '../App.tsx';
 
 interface HolidayScheduleTableProps {
   lang: Language;
